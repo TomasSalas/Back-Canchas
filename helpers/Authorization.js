@@ -3,11 +3,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const secretKey = process.env.SECRETKEY;
-console.log("secret", secretKey);
 
 export const Authorization = (req, res, next) => {
   const token = req.cookies.token;
-  console.log("token", token);
+
   if (!token) {
     return res.status(403).json({
       error: true,

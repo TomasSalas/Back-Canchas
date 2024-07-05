@@ -9,7 +9,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://front-canchas.vercel.app/",
     credentials: true,
   })
 );

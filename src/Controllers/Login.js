@@ -40,7 +40,7 @@ export const LoginUsuario = async (req, res) => {
 
     res.cookie("token", Token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "Lax",
     });
 
