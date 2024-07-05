@@ -4,7 +4,7 @@ export const UpdateTipoPago = async (req, res) => {
   const { idArriendo, idPago } = req.body;
 
   const [result] = await pool.query(
-    "UPDATE reserva SET id_pago = ?, pagada = 1 WHERE id_arriendo = ?",
+    "UPDATE Reserva SET id_pago = ?, pagada = 1 WHERE id_arriendo = ?",
     [idPago, idArriendo]
   );
 
