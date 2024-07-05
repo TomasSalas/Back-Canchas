@@ -39,7 +39,7 @@ export const LoginUsuario = async (req, res) => {
     const Token = CrearToken(data);
 
     res.cookie("token", Token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "None",
     });
