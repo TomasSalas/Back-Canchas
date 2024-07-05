@@ -7,7 +7,7 @@ export const LoginUsuario = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      "SELECT usuario, correo, password, id_usuairo FROM Usuario WHERE correo = ?",
+      "SELECT usuario, correo, password, id_usuario FROM Usuario WHERE correo = ?",
       [correo]
     );
 
@@ -31,7 +31,7 @@ export const LoginUsuario = async (req, res) => {
     }
 
     const data = {
-      idUsuario: result[0].id_usuairo,
+      idUsuario: result[0].id_usuario,
       usuario: result[0].usuario,
       correo: result[0].correo,
     };
@@ -41,13 +41,12 @@ export const LoginUsuario = async (req, res) => {
     res.cookie("token", Token, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      sameSite: "None",
     });
 
     return res.json({
       error: null,
       message: "Inicio de sesión exitoso",
-      data: Token,
     });
   } catch (err) {
     console.error(err);

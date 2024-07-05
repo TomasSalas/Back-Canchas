@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const secretKey = process.env.SECRETKEY;
-console.log(secretKey);
+
 export const Authorization = (req, res, next) => {
   const token = req.cookies.token;
   console.log("req.cookies", req.cookies);
