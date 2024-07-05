@@ -1,4 +1,4 @@
-import { CrearToken } from "../../helpers/Authorization.js";
+import { CrearToken, CrearTokenUserData } from "../../helpers/Authorization.js";
 import { verifyPassword } from "../../helpers/CryptoPass.js";
 import { pool } from "../DataBase/index.js";
 
@@ -37,6 +37,7 @@ export const LoginUsuario = async (req, res) => {
     };
 
     const Token = CrearToken(data);
+    const TokenUser = CrearTokenUserData(data);
 
     res.cookie("token", Token, {
       httpOnly: true,
@@ -47,7 +48,7 @@ export const LoginUsuario = async (req, res) => {
     return res.json({
       error: null,
       message: "Inicio de sesión exitoso",
-      data,
+      data: TokenUser,
     });
   } catch (err) {
     return res.status(500).json({
