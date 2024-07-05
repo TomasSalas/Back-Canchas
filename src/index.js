@@ -8,7 +8,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://front-canchas-git-main-tomassalas-projects.vercel.app",
+    origin: "http://localhost:5173",
+    // origin: "https://front-canchas-git-main-tomassalas-projects.vercel.app",
     credentials: true,
   })
 );

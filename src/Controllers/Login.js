@@ -39,7 +39,7 @@ export const LoginUsuario = async (req, res) => {
     const Token = CrearToken(data);
 
     res.cookie("token", Token, {
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: "None",
     });
@@ -47,13 +47,13 @@ export const LoginUsuario = async (req, res) => {
     return res.json({
       error: null,
       message: "Inicio de sesión exitoso",
+      data,
     });
   } catch (err) {
-    console.error(err);
     return res.status(500).json({
       error: true,
       message: "Error interno del servidor",
-      data: [],
+      data: [err],
     });
   }
 };
