@@ -7,7 +7,7 @@ export const LoginUsuario = async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      "SELECT usuario, correo, password, id_usuario FROM Usuario WHERE correo = ?",
+      "SELECT usuario, correo, password, id_usuairo FROM Usuario WHERE correo = ?",
       [correo]
     );
 
