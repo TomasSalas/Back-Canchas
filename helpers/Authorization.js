@@ -6,8 +6,6 @@ const secretKey = process.env.SECRETKEY;
 
 export const Authorization = (req, res, next) => {
   const token = req.cookies.token;
-  console.log("req.cookies", req.cookies);
-  console.log("token", token);
   if (!token) {
     return res.status(403).json({
       error: true,
