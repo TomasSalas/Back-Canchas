@@ -31,7 +31,7 @@ export const LoginUsuario = async (req, res) => {
     }
 
     const data = {
-      idUsuario: result[0].id_usuario,
+      idUsuario: result[0].id_usuairo,
       usuario: result[0].usuario,
       correo: result[0].correo,
     };
