@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["https://front-canchas-production.up.railway.app/"],
+    origin: ["https://front-canchas-production.up.railway.app"],
     credentials: true,
   })
 );
