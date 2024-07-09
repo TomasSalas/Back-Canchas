@@ -8,11 +8,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: [
-      "https://front-canchas-tomassalas-projects.vercel.app",
-      "https://front-canchas-git-main-tomassalas-projects.vercel.app",
-      "https://front-canchas.vercel.app",
-    ],
+    origin: ["https://front-canchas-production.up.railway.app/"],
     credentials: true,
   })
 );
