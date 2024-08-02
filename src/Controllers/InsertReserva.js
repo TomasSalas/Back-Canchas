@@ -1,56 +1,66 @@
 import { pool } from '../DataBase/index.js'
 
 export const InsertArriendo = async (req, res) => {
-  const {
-    FechaInicio,
-    HoraInicio,
-    HoraFinal,
-    cancha,
-    nombreArrendatario,
-    contactoArrendatario
-  } = req.body
-
-  const pagado = 0
-
-  const [existingReservations] = await pool.query(
-    `SELECT * FROM Reserva R
-    WHERE R.id_cancha = ? AND R.fecha = ? AND
-    (
-        (? BETWEEN R.hora_inicio AND R.hora_termino)
-        OR (? BETWEEN R.hora_inicio AND R.hora_termino)
-    );`,
-    [cancha, FechaInicio, HoraInicio, HoraFinal]
-  )
-
-  if (existingReservations.length > 0) {
-    return res.json({
-      error: true,
-      message: 'Cancha Ocupada'
-    })
-  }
-
-  const [result] = await pool.query(
-    'INSERT INTO Reserva (fecha, hora_inicio, hora_termino, id_cancha, nombre_arrendatario, numero_arrendatario, pagada) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [
+  try {
+    const {
       FechaInicio,
       HoraInicio,
       HoraFinal,
       cancha,
       nombreArrendatario,
-      contactoArrendatario,
-      pagado
-    ]
-  )
+      contactoArrendatario
+    } = req.body
 
-  if (result.affectedRows > 0) {
-    return res.json({
-      error: null,
-      message: 'Arriendo registrado correctamente'
-    })
-  } else {
-    return res.json({
+    const pagado = 0
+
+    // Verificar reservas existentes
+    const [existingReservations] = await pool.query(
+      `SELECT * FROM Reserva R
+      WHERE R.id_cancha = ? AND R.fecha = ? AND
+      (
+          (? BETWEEN R.hora_inicio AND R.hora_termino)
+          OR (? BETWEEN R.hora_inicio AND R.hora_termino)
+      );`,
+      [cancha, FechaInicio, HoraInicio, HoraFinal]
+    )
+
+    if (existingReservations.length > 0) {
+      return res.json({
+        error: true,
+        message: 'Cancha Ocupada'
+      })
+    }
+
+    // Insertar nueva reserva
+    const [result] = await pool.query(
+      'INSERT INTO Reserva (fecha, hora_inicio, hora_termino, id_cancha, nombre_arrendatario, numero_arrendatario, pagada) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [
+        FechaInicio,
+        HoraInicio,
+        HoraFinal,
+        cancha,
+        nombreArrendatario,
+        contactoArrendatario,
+        pagado
+      ]
+    )
+
+    if (result.affectedRows > 0) {
+      return res.json({
+        error: null,
+        message: 'Arriendo registrado correctamente'
+      })
+    } else {
+      return res.json({
+        error: true,
+        message: 'Error al registrar el arriendo'
+      })
+    }
+  } catch (err) {
+    console.error('Error en InsertArriendo:', err)
+    return res.status(500).json({
       error: true,
-      message: result.code
+      message: 'Error interno del servidor'
     })
   }
 }
