@@ -1,6 +1,7 @@
 import { pool } from '../DataBase/index.js'
 
 export const UpdateTipoPago = async (req, res) => {
+  console.log(req.body)
   const { idArriendo, idPago, pago } = req.body
 
   const [result] = await pool.query(
