@@ -1,11 +1,11 @@
 import { pool } from '../DataBase/index.js'
 
 export const UpdateTipoPago = async (req, res) => {
-  const { idArriendo, idPago } = req.body
+  const { idArriendo, idPago, pago } = req.body
 
   const [result] = await pool.query(
-    'UPDATE Reserva SET id_pago = ?, pagada = 1 WHERE id_arriendo = ?',
-    [idPago, idArriendo]
+    'UPDATE Reserva SET id_pago = ?, pagada = ? WHERE id_arriendo = ?',
+    [idPago, idArriendo, pago]
   )
 
   if (result.affectedRows > 0) {
